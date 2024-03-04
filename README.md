@@ -1,1 +1,1 @@
-# Welcome to lAImans mixology
+# Welcome to laymans mixology
