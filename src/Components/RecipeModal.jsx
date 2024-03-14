@@ -1,13 +1,15 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import axios from 'axios';
 
 const RecipeModal = (props) => {
     // console.log(props.ingredients)
     var ingredients = Object.entries(props.ingredients)
     const [checkedValue, setCheckedValue] = useState(false);
-
+    console.log(props.buttonText)
 
     var instructionsList = props.instructions.split('.').slice(0, -1)
+
+
 
     function handleClick() {
         document.getElementById(props.idName + "_recipe_modal").style.display = 'none'
@@ -16,8 +18,9 @@ const RecipeModal = (props) => {
     function handleCheck() {
         setCheckedValue(!checkedValue)
         console.log(checkedValue)
+        console.log('saved', props.saved)
 
-        if (!checkedValue) {
+        if (props.saved) {
             addSavedDrink() //
         } else {
             removeSavedDrink()
@@ -25,29 +28,23 @@ const RecipeModal = (props) => {
     }
 
     const addSavedDrink = async (event) => {
+        if (props.saved) {
+            return;
+        }
         console.log('adding', props.drinkData)
-        // event.preventDefault();
         const query = props.drinkData;
         console.log(query);
         const response = await axios.post('http://127.0.0.1:8000/api/addSavedDrink/', { query: query });
 
-        // document.getElementById('itemInput').value = '';
-
         console.log('ingredient added')
-        // fetchIngredients()
+
     }
+
+
 
     const removeSavedDrink = async (event) => {
         console.log('removing', props.drinkData)
-        // event.preventDefault();
-        // const query = event.target.query.value;
-        // console.log(query);
-        // const response = await axios.post('http://127.0.0.1:8000/api/addSavedDrink/', { query: query });
 
-        // document.getElementById('itemInput').value = '';
-
-        // console.log('ingredient added')
-        // fetchIngredients()
     }
 
 
@@ -91,8 +88,8 @@ const RecipeModal = (props) => {
                     {/* modal footer  */}
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-                        <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Save Drink</button>
-                        <input id="saved-checkbox" type='checkbox' onClick={handleCheck}></input>
+                        <button id='save-button' data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={handleCheck} >{props.buttonText}</button>
+                        <input id="saved-checkbox" type='checkbox' ></input>
                     </div>
                 </div>
             </div>

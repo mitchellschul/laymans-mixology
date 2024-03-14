@@ -4,6 +4,7 @@ import Placeholder from '../Assets/Images/testimg.jpg'
 import RecipeModal from './RecipeModal'
 
 const DrinkCard = (props) => {
+    console.log('props', props)
     const name = props.name
     const idName = name.toLowerCase().split(' ').join('_')
 
@@ -12,12 +13,20 @@ const DrinkCard = (props) => {
         console.log('click', modal)
     }
 
+    var buttonText = function () {
+        if (props.saved) {
+            return 'Remove Saved Drink';
+        } else {
+            return 'Save Drink';
+        }
+    }
+
     return (
 
 
 
         <div>
-            <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} />
+            <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} saved={props.saved} buttonText={buttonText()} />
 
             <div id={idName + '_card'} className="w-60 h-60 bg-gray-600 flex justify-center items-center m-4 relative hover:cursor-pointer hover:scale-105" onClick={handleClick}>
                 {/* <div className="w-[250px] h-[250px] absolute"></div> */}

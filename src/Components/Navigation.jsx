@@ -5,7 +5,7 @@ const Navigation = () => {
 
     return (
         <>
-            <div className='flex flex-row justify-between items-center px-8 w-full h-[80px] bg-black'>
+            <div className='flex flex-row justify-between items-center px-8 w-full h-[80px] bg-[#003049]'>
                 <div className='text-white text-xl'>
                     <Link to="/">Layman's Mixology</Link>
                 </div>

@@ -27,6 +27,7 @@ const Home = () => {
         const response = await axios.get('http://127.0.0.1:8000/api/getSavedDrinks/')
         console.log('HERE', response.data[0].drinks.savedDrinks)
         setDrinks(response.data[0].drinks.savedDrinks);
+        console.log('DRINKS', response.data[0].drinks.savedDrinks);
     }
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const Home = () => {
     }, []);
 
     const listItems = drinks.map((drink) =>
-        <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} />
+        <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={true} />
     );
     console.log(drinks)
     return (

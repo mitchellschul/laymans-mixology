@@ -18,7 +18,7 @@ const Drinks = () => {
     }, []);
 
     const listItems = drinks.map((drink) =>
-        <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} drinkData={drink} fetchDrinks={fetchDrinks} />
+        <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} drinkData={drink} fetchDrinks={fetchDrinks} saved={false} />
     );
     return (
         <div className='flex flex-col items-center'>
