@@ -10,3 +10,8 @@ class drinkList(models.Model):
     drinks = models.JSONField()
     def __str__(self):
         return self.drinks
+    
+class savedDrinksList(models.Model):
+    drinks = models.JSONField()
+    def __str__(self):
+        return self.drinks

@@ -5,13 +5,42 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
-from .models import ingredientList, drinkList
+from .models import ingredientList, drinkList, savedDrinksList
 from django.http import JsonResponse
-from .serializers import DrinkSerializer, IngredientSerializer
+from .serializers import DrinkSerializer, IngredientSerializer, SavedDrinkSerializer
 
 # Create your views here.
 def index(request):
     return JsonResponse({'response-payload': "test"})
+
+@api_view(['POST'])
+def setSavedDrinks(request):
+    try:
+        # NEED TO CHECK IF DRINK IS ALREADY SAVED
+        savedDrinks = savedDrinksList.objects.get(id = 0)
+        
+        existingDrinks = savedDrinks.drinks['savedDrinks']
+        drink =request.data.get('query')
+        
+        existingDrinks.append(drink)
+        
+        savedDrinks.drinks['savedDrinks'] = existingDrinks
+            
+        savedDrinks.save()
+        
+        serializer = DrinkSerializer(savedDrinks)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except drinkList.DoesNotExist:
+        return Response({"error": "Drink List not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['GET'])
+def getSavedDrinks(request):
+    print("RAHHHH")
+    savedDrinks = savedDrinksList.objects.all()
+    serializer = DrinkSerializer(savedDrinks, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])
 def setDrinks(request):
@@ -19,33 +48,22 @@ def setDrinks(request):
     try:
         drinks = drinkList.objects.get(id = 0)
         
-        existing_drinks = drinks.drinks['drinks']
-        # print("***********************")
-        # print(request.data)
-        # print("***********************")
-        # print("")
-        
-        # new_ingredient = {
-                    
-        #     "index": str(len(existing_ingredients)),  
-        #     "ingredient": request.data.get('query')          
-             
-        # }
-        
-        
         dataJson = json.loads(request.data.get('query'))
+        print('*************')
+        print(dataJson)
+        print('*************')
         
 
-        existing_drinks.append(dataJson)
-        drinks.drinks['drinks']= existing_drinks
+        # existing_drinks.append(dataJson.drinks)
+        drinks.drinks=dataJson
             
         drinks.save()
         
         serializer = DrinkSerializer(drinks)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    except ingredientList.DoesNotExist:
-        return Response({"error": "Ingredient List not found"}, status=status.HTTP_404_NOT_FOUND)
+    except drinkList.DoesNotExist:
+        return Response({"error": "Drink List not found"}, status=status.HTTP_404_NOT_FOUND)
     
 
 
@@ -67,18 +85,11 @@ def addIngredient(request):
         ingredients = ingredientList.objects.get(id = 0)
         
         existing_ingredients = ingredients.ingredients
-        print("***********************")
-        print(type(existing_ingredients))
-        print("***********************")
-        print("")
-        print("REQUEST: ", request.data.get('query'))
-        # new_ingredient = {
-                    
-        #     "index": str(len(existing_ingredients)),  
-        #     "ingredient": request.data.get('query')          
-             
-        # }
+        
         new_ingredient = f"{request.data.get('query')}"
+        
+        print("DRINK THINGY")
+        print(request.data.get('query'))
         
 
         existing_ingredients.append(new_ingredient)
@@ -86,6 +97,20 @@ def addIngredient(request):
             
         ingredients.save()
         
+        serializer = IngredientSerializer(ingredients)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    except ingredientList.DoesNotExist:
+        return Response({"error": "Ingredient List not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def removeIngredient(request):
+    try:
+        ingredients = ingredientList.objects.get(id = 0)
+       
+        if request.data.get('query') in ingredients.ingredients: ingredients.ingredients.remove(request.data.get('query'))
+      
+        ingredients.save()
         serializer = IngredientSerializer(ingredients)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -108,7 +133,7 @@ def OPAIEndpointQuery(request):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "im going to provide you a list of drink ingredients, id like you to create 10 individual drinks that use the ingredients ill provide however do not include every ingredient in every drink, essentially you are a bartender and id like you to create unique drinks based off the list, must include ingredient amounts. Do not use ingredients that are not on the list. Strictly use only the ingredients on the list. garnishes will be included in the list, if they are not do not include them at all. USE ONLY INGREDIENTS THAT ARE INCLUDED IN THE LIST. once the list of drinks is created provide it in following json format:  {'name': 'Name','ingredients':{ingredient, quanity} , 'instructions':}"},
+            {"role": "system", "content": "im going to provide you a list of drink ingredients, id like you to create 10 individual drinks that use the ingredients ill provide however do not include every ingredient in every drink, essentially you are a bartender and id like you to create unique drinks based off the list, must include ingredient amounts. Do not use ingredients that are not on the list. Strictly use only the ingredients on the list. garnishes will be included in the list, if they are not do not include them at all. USE ONLY INGREDIENTS THAT ARE INCLUDED IN THE LIST. Make sure that each drink includes at least on alcohol. once the list of drinks is created provide it in following json format:  {'name': 'Name','ingredients':{ingredient, quanity} , 'instructions':}"},
             {"role": "user", "content": f"LIST:{allIngredients}" }
         ]
     )
