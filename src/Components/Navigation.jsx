@@ -10,6 +10,9 @@ const Navigation = () => {
                     <Link to="/">Layman's Mixology</Link>
                 </div>
                 <div className='flex flex-row'>
+                    <div className='text-white text-lg'>
+                        <Link to="/">Home</Link>
+                    </div>
                     <div className='text-white mx-4 text-lg'>
                         <Link to="/inventory">Inventory</Link>
                     </div>
