@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from openai import OpenAI
 import json
 from rest_framework.decorators import api_view, permission_classes
@@ -7,11 +9,40 @@ from rest_framework import status
 from django.conf import settings
 from .models import ingredientList, drinkList, savedDrinksList
 from django.http import JsonResponse
-from .serializers import DrinkSerializer, IngredientSerializer, SavedDrinkSerializer
+from .serializers import DrinkSerializer, IngredientSerializer, SavedDrinkSerializer, SignUpSerializer
 
 # Create your views here.
 def index(request):
     return JsonResponse({'response-payload': "test"})
+
+@api_view(['POST'])
+def signUp(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    email = request.data.get('email')
+    first = request.data.get('first_name')
+    last = request.data.get('last_name')
+    if User.objects.filter(username=username).exists():  
+        print('username already exists')
+        return JsonResponse({'message' : 'username already exists'})
+    
+    user = User.objects.create_user(password=password, username=email, email=email, first_name=first, last_name=last)
+    user.save()
+    login(request, user)
+    # redirect('/Hub')
+    return JsonResponse({'message' : 'Signup Successfull'})
+
+@api_view(['POST'])
+def logIn(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        print('here')
+        login(request, user)
+        return JsonResponse({'message': 'Login successful'})
+    else:
+        return JsonResponse({'message': 'Login failed'}, status=401)
 
 @api_view(['POST'])
 def setSavedDrinks(request):

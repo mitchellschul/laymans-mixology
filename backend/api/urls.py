@@ -29,7 +29,9 @@ urlpatterns = [
     path('removeIngredient/', views.removeIngredient, name='Remove Ingredient'),
     path('addSavedDrink/', views.setSavedDrinks, name='Add Saved Drink'),
     path('getSavedDrinks/', views.getSavedDrinks, name='Get Saved Drinks'),
-    # path('login/', views.login_view, name='login'),
+    path('signUp/', views.signUp, name='Sign Up'),
+    path('logIn/', views.logIn, name='Log In'),
+    # path('')
     # path('logout/', views.logout_view, name='logout'),
     # path('conversations/', views.conversation_list, name='conversation-list'),
     # path('get-statistics/', views.conversation_stats, name='conversation-stats'),

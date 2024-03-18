@@ -28,7 +28,7 @@ const DrinkCard = (props) => {
         <div>
             <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} saved={props.saved} buttonText={buttonText()} />
 
-            <div id={idName + '_card'} className="w-60 h-60 bg-gray-600 flex justify-center items-center m-4 relative hover:cursor-pointer hover:scale-105" onClick={handleClick}>
+            <div id={idName + '_card'} className="w-60 h-60 bg-[#003049] flex justify-center items-center m-4 relative hover:cursor-pointer hover:scale-105" onClick={handleClick}>
                 {/* <div className="w-[250px] h-[250px] absolute"></div> */}
 
                 <div class="w-52 h-52 absolute border-solid 

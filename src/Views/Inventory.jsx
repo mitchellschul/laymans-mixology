@@ -61,9 +61,9 @@ const Inventory = (props) => {
                     <button type='submit' className='border border-black p-2 rounded-md'>Add Item</button>
                 </form>
                 <div className='flex flex-col-reverse'>{listItems}</div>
-                <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] p-2 rounded-md my-8" onClick={handleClick}>Get New Drinks</button>
+                <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={handleClick}>Get New Drinks</button>
                 <div id="loader" className='hidden flex-col items-center justify-center'>
-                    <ReactLoading type={'bars'} color={'#000'} height={50} width={100} />
+                    <ReactLoading type={'bars'} color={'#003049'} height={50} width={100} />
                     <div className='my-8'>Generating your drinks</div>
                 </div>
 

@@ -48,13 +48,13 @@ const Home = () => {
             </div>
 
             <div className='flex flex-row items-center my-8'>
-                <div id={'feature' + '_card'} className="w-72 h-72 bg-gray-600 flex justify-center items-center m-4 relative  ">
+                <div id={'feature' + '_card'} className="w-72 h-72 bg-[#003049] flex justify-center items-center m-4 relative  ">
 
                     <div class="w-64 h-64 absolute border-solid 
                 border-white border-2">
                         <div class="drink-text absolute bottom-4 left-4 w-44 ">
                             <div class="drink-name text-white text-xl">
-                                Featured Drink
+                                <div>Captain's Blue Crush</div>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,11 @@ const Home = () => {
 
                 </div>
                 <div>
-                    Drink Information
+                    <div> 1.5 oz of Captain Morgan Long Island</div>
+
+                    <div>0.5 oz of Blue Curacao</div>
+                    <div>3 oz of Sweet and Sour Mix</div>
+                    <div>1 oz of Water</div>
                 </div>
             </div>
 

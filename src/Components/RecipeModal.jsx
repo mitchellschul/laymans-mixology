@@ -5,6 +5,7 @@ const RecipeModal = (props) => {
     // console.log(props.ingredients)
     var ingredients = Object.entries(props.ingredients)
     const [checkedValue, setCheckedValue] = useState(false);
+    const [buttonText, setButtonText] = useState(props.buttonText)
     console.log(props.buttonText)
 
     var instructionsList = props.instructions.split('.').slice(0, -1)
@@ -31,6 +32,7 @@ const RecipeModal = (props) => {
         if (props.saved) {
             return;
         }
+        setButtonText('Remove Saved Drink')
         console.log('adding', props.drinkData)
         const query = props.drinkData;
         console.log(query);
@@ -65,7 +67,7 @@ const RecipeModal = (props) => {
         <div id={props.idName + "_recipe_modal"} tabindex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden absolute  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-2xl max-h-full">
                 {/* <!-- Modal content --> */}
-                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div class="relative bg-white rounded-lg shadow dark:bg-[#003049]">
                     {/* <!-- Modal header --> */}
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -88,8 +90,8 @@ const RecipeModal = (props) => {
                     {/* modal footer  */}
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
 
-                        <button id='save-button' data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={handleCheck} >{props.buttonText}</button>
-                        <input id="saved-checkbox" type='checkbox' ></input>
+                        <button id='save-button' data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={handleCheck} >{buttonText}</button>
+
                     </div>
                 </div>
             </div>
