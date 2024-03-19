@@ -36,7 +36,7 @@ const Home = () => {
     }, []);
 
     const listItems = drinks.map((drink) =>
-        <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={true} />
+        <DrinkCard drinkData={drink} name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={true} />
     );
     console.log(drinks)
     return (

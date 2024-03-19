@@ -47,28 +47,44 @@ def logIn(request):
 @api_view(['POST'])
 def setSavedDrinks(request):
     try:
+
         # NEED TO CHECK IF DRINK IS ALREADY SAVED
         savedDrinks = savedDrinksList.objects.get(id = 0)
-        
         existingDrinks = savedDrinks.drinks['savedDrinks']
         drink =request.data.get('query')
-        
         existingDrinks.append(drink)
-        
-        savedDrinks.drinks['savedDrinks'] = existingDrinks
-            
+        savedDrinks.drinks['savedDrinks'] = existingDrinks 
         savedDrinks.save()
-        
         serializer = DrinkSerializer(savedDrinks)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
     except drinkList.DoesNotExist:
         return Response({"error": "Drink List not found"}, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['POST'])
+def removeSavedDrink(request):
+    try:
+        print('++++++++QUERY++++++++++')
+        print(request.data.get('query'))
+        print('++++++++QUERY++++++++++')
+        
+        savedDrinks = savedDrinksList.objects.get(id=0)
+        print('++++++++BEFORE++++++++++')
+        print('before', savedDrinks.drinks['savedDrinks'])
+        print('++++++++BEFORE++++++++++')
+        if request.data.get('query') in savedDrinks.drinks['savedDrinks']: savedDrinks.drinks['savedDrinks'].remove(request.data.get('query'))
+        
+        print('after', savedDrinks.drinks)
+        
+        savedDrinks.save()
+        serializer = SavedDrinkSerializer(savedDrinks)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    except ingredientList.DoesNotExist:
+        return Response({"error": "Ingredient List not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['GET'])
 def getSavedDrinks(request):
-    print("RAHHHH")
     savedDrinks = savedDrinksList.objects.all()
     serializer = DrinkSerializer(savedDrinks, many=True)
     return JsonResponse(serializer.data, safe=False)

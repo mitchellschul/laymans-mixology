@@ -2,51 +2,52 @@ import { React, useState, useEffect } from 'react'
 import axios from 'axios';
 
 const RecipeModal = (props) => {
-    // console.log(props.ingredients)
+
     var ingredients = Object.entries(props.ingredients)
-    const [checkedValue, setCheckedValue] = useState(false);
+    const [checkedValue, setCheckedValue] = useState(props.saved);
     const [buttonText, setButtonText] = useState(props.buttonText)
-    console.log(props.buttonText)
 
     var instructionsList = props.instructions.split('.').slice(0, -1)
-
-
 
     function handleClick() {
         document.getElementById(props.idName + "_recipe_modal").style.display = 'none'
     }
 
     function handleCheck() {
-        setCheckedValue(!checkedValue)
-        console.log(checkedValue)
-        console.log('saved', props.saved)
 
-        if (props.saved) {
-            addSavedDrink() //
-        } else {
+        if (buttonText == 'Remove Saved Drink') {
+            console.log('REMOVE', props)
             removeSavedDrink()
+            return;
+        } else {
+            console.log('ADDING A SAVED DRINK')
+            addSavedDrink()
         }
+
+
     }
 
     const addSavedDrink = async (event) => {
-        if (props.saved) {
-            return;
-        }
-        setButtonText('Remove Saved Drink')
+        setButtonText('Drink Saved')
+        document.getElementById('save-button').innerText = 'Drink Saved'
         console.log('adding', props.drinkData)
         const query = props.drinkData;
-        console.log(query);
         const response = await axios.post('http://127.0.0.1:8000/api/addSavedDrink/', { query: query });
-
         console.log('ingredient added')
-
     }
 
 
 
     const removeSavedDrink = async (event) => {
-        console.log('removing', props.drinkData)
+        console.log('removing', props)
 
+        setButtonText('Save Drink')
+        // document.getElementById('save-button').innerText = 'Save Drink'
+        console.log('removing', props)
+        const query = props.drinkData
+        // const query = props.drinkData;
+        const response = await axios.post('http://127.0.0.1:8000/api/removeSavedDrink/', { query: query });
+        props.fetchDrinks()
     }
 
 

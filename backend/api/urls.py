@@ -29,6 +29,7 @@ urlpatterns = [
     path('removeIngredient/', views.removeIngredient, name='Remove Ingredient'),
     path('addSavedDrink/', views.setSavedDrinks, name='Add Saved Drink'),
     path('getSavedDrinks/', views.getSavedDrinks, name='Get Saved Drinks'),
+    path('removeSavedDrink/', views.removeSavedDrink, name='Remove Saved Drink'),
     path('signUp/', views.signUp, name='Sign Up'),
     path('logIn/', views.logIn, name='Log In'),
     # path('')

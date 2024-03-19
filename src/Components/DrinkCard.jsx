@@ -5,6 +5,7 @@ import RecipeModal from './RecipeModal'
 
 const DrinkCard = (props) => {
     console.log('props', props)
+    console.log('DRINK DATA', props.drinkData)
     const name = props.name
     const idName = name.toLowerCase().split(' ').join('_')
 
@@ -26,7 +27,7 @@ const DrinkCard = (props) => {
 
 
         <div>
-            <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} saved={props.saved} buttonText={buttonText()} />
+            <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} saved={props.saved} buttonText={buttonText} fetchDrinks={props.fetchDrinks} />
 
             <div id={idName + '_card'} className="w-60 h-60 bg-[#003049] flex justify-center items-center m-4 relative hover:cursor-pointer hover:scale-105" onClick={handleClick}>
                 {/* <div className="w-[250px] h-[250px] absolute"></div> */}
