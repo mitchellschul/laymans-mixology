@@ -34,6 +34,8 @@ const Inventory = (props) => {
         document.getElementById('loader').style.display = 'flex';
         await queryAi()
         window.location.href = '/drinks'
+        document.getElementById('new_button').style.display = 'flex';
+        document.getElementById('loader').style.display = 'none';
 
     }
 

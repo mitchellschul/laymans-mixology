@@ -40,6 +40,7 @@ const RecipeModal = (props) => {
 
     const removeSavedDrink = async (event) => {
         console.log('removing', props)
+        document.getElementById(props.idName + "_recipe_modal").style.display = 'none'
 
         setButtonText('Save Drink')
         // document.getElementById('save-button').innerText = 'Save Drink'

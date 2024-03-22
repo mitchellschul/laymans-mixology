@@ -4,41 +4,24 @@ import axios from 'axios'
 import DrinkCard from '../Components/DrinkCard'
 
 const Home = () => {
-    // const [refreshDrinkScreen, setRefreshDrinkScreen] = useState(false);
-
-    // const handleIngredientAdded = () => {
-    //     // Set the state to trigger a refresh in DrinkScreen
-    //     setRefreshDrinkScreen(!refreshDrinkScreen);
-    // };
 
     const [drinks, setDrinks] = useState([]);
-    const [featuredDrinkVal, setFeaturedDrinkVal] = useState([]);
 
-    var get_random = function (object) {
-        var keys = Object.keys(object);
-        console.log(keys);
-        var value = keys[(Math.floor(Math.random() * keys.length))];
-        // var key = key.random()
-        setFeaturedDrinkVal(value)
-
-    };
 
     const fetchDrinks = async (event) => {
         const response = await axios.get('http://127.0.0.1:8000/api/getSavedDrinks/')
-        console.log('HERE', response.data[0].drinks.savedDrinks)
         setDrinks(response.data[0].drinks.savedDrinks);
-        console.log('DRINKS', response.data[0].drinks.savedDrinks);
+
     }
 
     useEffect(() => {
         fetchDrinks();
-
     }, []);
 
     const listItems = drinks.map((drink) =>
         <DrinkCard drinkData={drink} name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={true} />
     );
-    console.log(drinks)
+
     return (
         <div className='flex flex-col items-center '>
 

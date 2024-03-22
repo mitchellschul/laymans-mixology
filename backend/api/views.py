@@ -28,7 +28,8 @@ def signUp(request):
     
     user = User.objects.create_user(password=password, username=email, email=email, first_name=first, last_name=last)
     user.save()
-    login(request, user)
+    print(request, user)
+    # login(request, user)
     # redirect('/Hub')
     return JsonResponse({'message' : 'Signup Successfull'})
 
@@ -43,6 +44,10 @@ def logIn(request):
         return JsonResponse({'message': 'Login successful'})
     else:
         return JsonResponse({'message': 'Login failed'}, status=401)
+
+# @api_view(['POST'])
+# def logOut(request):
+    
 
 @api_view(['POST'])
 def setSavedDrinks(request):
@@ -91,29 +96,24 @@ def getSavedDrinks(request):
 
 @api_view(['POST'])
 def setDrinks(request):
+    
+    print(request.data)
    
     try:
         drinks = drinkList.objects.get(id = 0)
+        print('*************')
+        print(request.data.get('query'))
+        print('*************')
         
         dataJson = json.loads(request.data.get('query'))
-        print('*************')
-        print(dataJson)
-        print('*************')
-        
-
-        # existing_drinks.append(dataJson.drinks)
-        drinks.drinks=dataJson
-            
-        drinks.save()
-        
+        drinks.drinks=dataJson   
+        drinks.save()       
         serializer = DrinkSerializer(drinks)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     except drinkList.DoesNotExist:
         return Response({"error": "Drink List not found"}, status=status.HTTP_404_NOT_FOUND)
     
-
-
 @api_view(['GET'])
 def getDrinks(request):
     drinks = drinkList.objects.all()
@@ -130,20 +130,13 @@ def getIngredients(request):
 def addIngredient(request):
     try:
         ingredients = ingredientList.objects.get(id = 0)
-        
-        existing_ingredients = ingredients.ingredients
-        
-        new_ingredient = f"{request.data.get('query')}"
-        
+        existing_ingredients = ingredients.ingredients       
+        new_ingredient = f"{request.data.get('query')}"        
         print("DRINK THINGY")
         print(request.data.get('query'))
-        
-
         existing_ingredients.append(new_ingredient)
-        ingredients.ingredients = existing_ingredients
-            
-        ingredients.save()
-        
+        ingredients.ingredients = existing_ingredients           
+        ingredients.save()      
         serializer = IngredientSerializer(ingredients)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -156,7 +149,7 @@ def removeIngredient(request):
         ingredients = ingredientList.objects.get(id = 0)
        
         if request.data.get('query') in ingredients.ingredients: ingredients.ingredients.remove(request.data.get('query'))
-      
+     
         ingredients.save()
         serializer = IngredientSerializer(ingredients)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -171,7 +164,6 @@ def OPAIEndpointQuery(request):
     ingredients = ingredientList.objects.get(id = 0)
     allIngredients = ingredients.ingredients
     
-    
     temp = ''
     
     for i in allIngredients:
@@ -180,9 +172,9 @@ def OPAIEndpointQuery(request):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "im going to provide you a list of drink ingredients, id like you to create 10 individual drinks that use the ingredients ill provide however do not include every ingredient in every drink, essentially you are a bartender and id like you to create unique drinks based off the list, must include ingredient amounts. Do not use ingredients that are not on the list. Strictly use only the ingredients on the list. garnishes will be included in the list, if they are not do not include them at all. USE ONLY INGREDIENTS THAT ARE INCLUDED IN THE LIST. Make sure that each drink includes at least on alcohol. once the list of drinks is created provide it in following json format:  {'name': 'Name','ingredients':{ingredient, quanity} , 'instructions':}"},
+            {"role": "system", "content": 'You are to act as a bartenter and you are to create cocktails based off of a proved list of ingredients. You are to make 10 drinks from these ingredients. Strictly use only the ingredients on the list. garnishes will be included in the list, if they are not do not include them at all. YOU MUST ONLY USE INGREDIENTS THAT ARE INCLUDED IN THE LIST. DO NOT INCLUDE INGREDENTS THAT ARE NOT IN THE LIST. Make sure that each drink includes at least one alcohol. you must format the response in the following format: {"drinks": [{"name": "Name", "ingredients": {"Ingredient": "quanity"}, "instructions": "}, {NEXT DRINK}]'},
             {"role": "user", "content": f"LIST:{allIngredients}" }
         ]
     )
-    print(response.choices[0].message.content)
+    # print(type(response))
     return JsonResponse({'response-payload': response.choices[0].message.content})

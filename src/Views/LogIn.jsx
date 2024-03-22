@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LogIn = () => {
 
@@ -8,7 +9,7 @@ const LogIn = () => {
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
 
-
+    const nav = useNavigate();
 
     const handleLogIn = async (e) => {
         e.preventDefault();
@@ -19,6 +20,8 @@ const LogIn = () => {
         data['username'] = email
         data['password'] = password
         const response = await axios.post('http://127.0.0.1:8000/api/logIn/', data);
+        console.log(response)
+        nav('/');
 
     }
     return (
