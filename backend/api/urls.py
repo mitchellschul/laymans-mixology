@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('OPAIEndpointQuery/', views.OPAIEndpointQuery, name='Ingredients query'),
+    path('OPAIEndpointFPQuery/', views.OPAIEndpointFPQuery, name='Flavored Drinks API query'),
     path('setDrinks/', views.setDrinks, name='Set Drinks'),
     path('getDrinks/', views.getDrinks, name='Drinks query'),
     path('addIngredient/', views.addIngredient, name='Add Ingredient'),
@@ -32,6 +33,8 @@ urlpatterns = [
     path('removeSavedDrink/', views.removeSavedDrink, name='Remove Saved Drink'),
     path('signUp/', views.signUp, name='Sign Up'),
     path('logIn/', views.logIn, name='Log In'),
+    path('setFlavorProfiles/', views.setFlavorProfiles, name='Set Flavor Profiles'),
+    # path('getFlavorProfiles/', views.getFlavorProfiles, name='Get Flavor Profiles')
     # path('')
     # path('logout/', views.logout_view, name='logout'),
     # path('conversations/', views.conversation_list, name='conversation-list'),

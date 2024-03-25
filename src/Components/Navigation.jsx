@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 
 const Navigation = () => {
 
@@ -7,21 +7,32 @@ const Navigation = () => {
         <>
             <div className='flex flex-row justify-between items-center px-8 w-full h-[80px] bg-[#003049]'>
                 <div className='text-white text-xl'>
-                    <Link to="/">Layman's Mixology</Link>
+                    <NavLink to="/">Layman's Mixology</NavLink>
                 </div>
                 <div className='flex flex-row'>
-                    <div className='text-white mx-2 text-lg'>
-                        <Link to="/">Home</Link>
+                    <div className=' mx-2 text-lg'>
+                        <NavLink to="/" style={({ isActive }) => ({
+                            color: isActive ? '#fff' : '#545e6f'
+
+                        })}>Home</NavLink>
                     </div>
-                    <div className='text-white mx-2 text-lg'>
-                        <Link to="/inventory">Inventory</Link>
+                    <div className=' mx-2 text-lg '>
+                        <NavLink to="/inventory" style={({ isActive }) => ({
+                            color: isActive ? '#fff' : '#545e6f'
+
+                        })}>Inventory</NavLink>
                     </div>
-                    <div className='text-white mx-2 text-lg'>
-                        <Link to="/Drinks">Drinks</Link>
+                    <div className=' mx-2 text-lg'>
+                        <NavLink to="/Drinks" style={({ isActive }) => ({
+                            color: isActive ? '#fff' : '#545e6f',
+                        })}>Drinks</NavLink>
                     </div>
-                    <div className='text-white mx-2 text-lg'>
-                        <Link to="/Drinks">Log Out</Link>
-                    </div>
+                    {/* <div className='text-white mx-2 text-lg'>
+                        <NavLink to="/Drinks" style={({ isActive }) => ({
+                            color: isActive ? '#fff' : '#545e6f'
+
+                        })}>Log Out</NavLink>
+                    </div> */}
                 </div>
 
             </div>

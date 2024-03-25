@@ -8,7 +8,6 @@ const LogIn = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
-
     const nav = useNavigate();
 
     const handleLogIn = async (e) => {
@@ -20,8 +19,16 @@ const LogIn = () => {
         data['username'] = email
         data['password'] = password
         const response = await axios.post('http://127.0.0.1:8000/api/logIn/', data);
-        console.log(response)
-        nav('/');
+        console.log(response.data)
+        nav('/', { state: { user: response.data }, replase: true });
+        // try {
+        //     const response = await axios.post('http://127.0.0.1:8000/api/logIn/', data);
+        //     const user = response.data;
+        //     // Navigate to home page with user information
+        //     nav('/', { state: { user } });
+        // } catch (error) {
+        //     console.error('Login failed:', error);
+        // }
 
     }
     return (

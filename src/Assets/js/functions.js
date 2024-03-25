@@ -15,10 +15,30 @@ export async function queryAi() {
     var count = 0
 
     try {
-        count += 1
+        queryFPAi()
+        document.getElementById('progress-text').innerText = "Generating New Drinks"
         console.log('Running the AI')
         const response = await axios.post('http://127.0.0.1:8000/api/OPAIEndpointQuery/');
         const formatResponse = await axios.post('http://127.0.0.1:8000/api/setDrinks/', { query: response.data['response-payload'] });
+
+    }
+    catch (e) {
+        console.log('QUERYAI ERROR: ', e)
+        console.log("HEY THERES A FREAKING ERROR HERE BROSKI", count)
+        // queryAi()
+    }
+}
+
+export async function queryFPAi() {
+    var count = 0
+
+    try {
+        count += 1
+        console.log('Running the AI')
+        const response = await axios.post('http://127.0.0.1:8000/api/OPAIEndpointFPQuery/');
+        const formatResponse = await axios.post('http://127.0.0.1:8000/api/setFlavorProfiles/', { query: response.data['response-payload'] });
+        const get = await axios.get('http://127.0.0.1:8000/api/getSavedDrinks/')
+
 
     }
     catch (e) {

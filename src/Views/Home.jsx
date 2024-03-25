@@ -3,17 +3,28 @@ import axios from 'axios'
 
 import DrinkCard from '../Components/DrinkCard'
 
-const Home = () => {
+const Home = (props) => {
+    console.log("HOME USER INFO", props)
 
     const [drinks, setDrinks] = useState([]);
+    const [featuredDrink, setFeaturedDrink] = useState(null);
 
-
-    const fetchDrinks = async (event) => {
-        const response = await axios.get('http://127.0.0.1:8000/api/getSavedDrinks/')
-        setDrinks(response.data[0].drinks.savedDrinks);
-
-    }
-
+    const fetchDrinks = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/api/getSavedDrinks/');
+            const savedDrinks = response.data[0].drinks.savedDrinks;
+            setDrinks(savedDrinks);
+            const storedFeaturedDrinkIndex = localStorage.getItem('featuredDrinkIndex');
+            if (storedFeaturedDrinkIndex) {
+                const index = parseInt(storedFeaturedDrinkIndex);
+                setFeaturedDrink(savedDrinks[index] || null);
+            } else {
+                setFeaturedDrink(savedDrinks[0] || null);
+            }
+        } catch (error) {
+            console.error('Error fetching drinks:', error);
+        }
+    };
     useEffect(() => {
         fetchDrinks();
     }, []);
@@ -22,6 +33,13 @@ const Home = () => {
         <DrinkCard drinkData={drink} name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={true} />
     );
 
+    useEffect(() => {
+        if (featuredDrink) {
+            localStorage.setItem('featuredDrinkIndex', drinks.indexOf(featuredDrink));
+        }
+    }, [featuredDrink, drinks]);
+
+    // console.log(featuredDrinkName)
     return (
         <div className='flex flex-col items-center '>
 
@@ -37,7 +55,7 @@ const Home = () => {
                 border-white border-2">
                         <div class="drink-text absolute bottom-4 left-4 w-44 ">
                             <div class="drink-name text-white text-xl">
-                                <div>Captain's Blue Crush</div>
+                                <div>Blue Captain Crush</div>
                             </div>
                         </div>
                     </div>

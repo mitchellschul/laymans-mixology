@@ -4,7 +4,7 @@ import ReactLoading from 'react-loading';
 
 
 import { addIngredient } from '../Assets/js/functions.js'
-import { queryAi } from '../Assets/js/functions.js'
+import { queryAi, queryFPAi } from '../Assets/js/functions.js'
 
 import WellItem from '../Components/WellItem.jsx'
 
@@ -39,6 +39,13 @@ const Inventory = (props) => {
 
     }
 
+    const flavorClick = async (event) => {
+
+        const response = await queryFPAi()
+        console.log(response);
+
+    }
+
 
 
     useEffect(() => {
@@ -64,9 +71,10 @@ const Inventory = (props) => {
                 </form>
                 <div className='flex flex-col-reverse'>{listItems}</div>
                 <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={handleClick}>Get New Drinks</button>
+                <button id='temp_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={flavorClick}>Flavor Profiles</button>
                 <div id="loader" className='hidden flex-col items-center justify-center'>
                     <ReactLoading type={'bars'} color={'#003049'} height={50} width={100} />
-                    <div className='my-8'>Generating your drinks</div>
+                    <div id='progress-text' className='my-8'>Building Flavor Profiles</div>
                 </div>
 
             </div>

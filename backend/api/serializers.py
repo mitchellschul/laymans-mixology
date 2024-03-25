@@ -21,3 +21,8 @@ class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+        
+class FlavorProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
