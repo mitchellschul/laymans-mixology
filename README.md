@@ -1,4 +1,4 @@
-# ![WebApp](./github/laymans.png)
+# ![WebApp](./github/Cover.png)
 # Layman's Mixology
 <table>
 <tr>
