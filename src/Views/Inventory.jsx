@@ -39,15 +39,6 @@ const Inventory = (props) => {
 
     }
 
-    const flavorClick = async (event) => {
-
-        const response = await queryFPAi()
-        console.log(response);
-
-    }
-
-
-
     useEffect(() => {
         fetchIngredients();
     }, []);
@@ -64,14 +55,14 @@ const Inventory = (props) => {
             <div className='my-8 flex flex-col items-center'>
 
 
-                <form onSubmit={handleSubmit} className='flex flex-row justify-between my-8'>
+                <form onSubmit={handleSubmit} className='flex flex-row justify-between my-8 min-w-96'>
 
-                    <input id='itemInput' type='text' className='border border-black p-2 rounded-md' name='query' />
-                    <button type='submit' className='border border-black p-2 rounded-md'>Add Item</button>
+                    <input id='itemInput' type='text' className='border-2 border-[#003049] p-2 rounded-md w-[70%]' name='query' />
+                    <button type='submit' className='border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md '>Add Item</button>
                 </form>
                 <div className='flex flex-col-reverse'>{listItems}</div>
                 <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={handleClick}>Get New Drinks</button>
-                <button id='temp_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={flavorClick}>Flavor Profiles</button>
+
                 <div id="loader" className='hidden flex-col items-center justify-center'>
                     <ReactLoading type={'bars'} color={'#003049'} height={50} width={100} />
                     <div id='progress-text' className='my-8'>Building Flavor Profiles</div>

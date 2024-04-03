@@ -1,5 +1,8 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
+import Hero from '../Components/Hero'
+import bg from '../Assets/Images/bg.png'
+
 
 import DrinkCard from '../Components/DrinkCard'
 
@@ -41,46 +44,17 @@ const Home = (props) => {
 
     // console.log(featuredDrinkName)
     return (
-        <div className='flex flex-col items-center '>
+        <div className="flex flex-col items-center" >
 
-            <div className='flex flex-col my-8'>
-                <div className='text-xl text-gray-600 font-oswald'>Good Eveneing,</div>
-                <div className='text-3xl font-oswald'>Tonights Recomended Drink</div>
-            </div>
+            <Hero />
+            <div className="w-full  mx-20 flex flex-col items-center" >
 
-            <div className='flex flex-row items-center my-8'>
-                <div id={'feature' + '_card'} className="w-72 h-72 bg-[#003049] flex justify-center items-center m-4 relative  ">
-
-                    <div class="w-64 h-64 absolute border-solid 
-                border-white border-2">
-                        <div class="drink-text absolute bottom-4 left-4 w-44 ">
-                            <div class="drink-name text-white text-xl">
-                                <div>Blue Captain Crush</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div>
-                    <div> 1.5 oz of Captain Morgan Long Island</div>
-
-                    <div>0.5 oz of Blue Curacao</div>
-                    <div>3 oz of Sweet and Sour Mix</div>
-                    <div>1 oz of Water</div>
+                <div className='text-3xl my-8'>Your Saved Drinks</div>
+                <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+                    {listItems}
                 </div>
             </div>
-
-            <div className='text-3xl my-8'>Your Saved Drinks</div>
-            <div className='grid grid-cols-3 gap-4 my-8'>
-                {listItems}
-            </div>
-
-            {/* <div className='flex flex-row'>
-                <Well onIngredientAdded={handleIngredientAdded} />
-                <DrinkScreen key={refreshDrinkScreen} />
-            </div> */}
-        </div>
+        </div >
 
     )
 }

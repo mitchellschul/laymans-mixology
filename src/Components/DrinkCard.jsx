@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Placeholder from '../Assets/Images/testimg.jpg'
 import RecipeModal from './RecipeModal'
+import { BiSolidDrink } from "react-icons/bi";
 
 
 const DrinkCard = (props) => {
@@ -35,10 +36,26 @@ const DrinkCard = (props) => {
         }
     }
 
-    // if (userIngredients.every(r => ingredients.includes(r))) {
-    //     console.log('Found all of', userIngredients, 'in', ingredients);
-    //     document.getElementById('make-tag').style.display = 'flex';
-    // }
+    var formatName = function () {
+        if ((props.name).substring(0, 3) == 'CF ') {
+            return (<div id="drink-name" class="drink-nam text-lg">
+                {(props.name).substring(3)}
+            </div>);
+        } else {
+            return (<div id="drink-name" class="drink-name text-white text-lg">
+                {props.name}
+            </div>);
+        }
+    }
+
+    var madeForYou = function () {
+        if ((props.name).substring(0, 3) == 'CF ') {
+            return (<div className=" text-white text-lg absolute top-4 right-4">
+                <BiSolidDrink className='w-6 h-6' />
+            </div>);
+        }
+    }
+
 
     return (
 
@@ -48,16 +65,15 @@ const DrinkCard = (props) => {
             <RecipeModal idName={idName} name={name} ingredients={props.ingredients} instructions={props.instructions} drinkData={props.drinkData} saved={props.saved} buttonText={buttonText} fetchDrinks={props.fetchDrinks} />
 
             <div id={idName + '_card'} className="w-60 h-60 bg-[#003049] flex justify-center items-center m-4 relative hover:cursor-pointer hover:scale-105" onClick={handleClick}>
-                {/* <div className="w-[250px] h-[250px] absolute"></div> */}
-
                 <div class="w-52 h-52 absolute border-solid 
                 border-white border-2">
-                    <div id='make-tag' className='text-white absolute top-2 left-12 w-44 hidden'>You Can Make This</div>
+                    {madeForYou()}
 
                     <div class="drink-text absolute bottom-4 left-4 w-44 ">
-                        <div class="drink-name text-white text-lg">
-                            {props.name}
+                        <div id="drink-name" class="drink-name text-white text-lg">
+                            {formatName()}
                         </div>
+
                     </div>
                 </div>
 

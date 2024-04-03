@@ -21,7 +21,7 @@ const Drinks = () => {
         <DrinkCard name={drink['name']} ingredients={drink['ingredients']} instructions={drink['instructions']} fetchDrinks={fetchDrinks} saved={false} drinkData={drink} />
     );
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center '>
 
             <div className='flex flex-col my-8'>
                 <div className='text-3xl font-oswald'>Your AI Customized Drinks</div>

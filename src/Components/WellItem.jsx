@@ -17,13 +17,10 @@ const WellItem = (props) => {
         props.fetchIngredients()
     }
 
-
-
-
     return (
-        <div className='flex flex-row justify-between items-center p-2 text-lg border-b-2 min-w-96 '>
+        <div className='flex flex-row justify-between items-center p-2 text-lg border-b-2 min-w-96 hover:bg-gray-100 '>
             <div className='text-start'>{Capitalize(props.item)}</div>
-            <HiOutlineXCircle onClick={handleClick} size={24} className='hover:cursor-pointer' />
+            <HiOutlineXCircle onClick={handleClick} size={24} className='hover:cursor-pointer hover:bg-red-400 hover:rounded-2xl' />
         </div>
     )
 }
