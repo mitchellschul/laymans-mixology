@@ -108,6 +108,7 @@ def setDrinks(request):
 def getDrinks(request):
     drinks = drinkList.objects.all()
     serializer = DrinkSerializer(drinks, many=True)
+    print(User.objects.all())
     return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])

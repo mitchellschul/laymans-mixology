@@ -4,7 +4,15 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ["Roberto Condensed", "Sans-serif"],
+      },
+      colors: {
+        'dark-gray': "#242524",
+        'bg-white': "#eee",
+      },
+    },
   },
   plugins: [],
 }

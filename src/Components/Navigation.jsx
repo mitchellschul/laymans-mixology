@@ -1,13 +1,15 @@
 import { React, useState } from 'react'
 import { Outlet, NavLink } from "react-router-dom";
 
+import Logo from '../Assets/Images/Cover.png';
+
 const Navigation = () => {
 
     return (
         <>
-            <div className='flex flex-row justify-between items-center px-8 w-full h-[80px] bg-[#003049]'>
-                <div className='text-white text-xl'>
-                    <NavLink to="/">Layman's Mixology</NavLink>
+            <div className='flex flex-row justify-between items-center px-8 w-full h-[80px] bg-[#242524]'>
+                <div className='text-white text-xl w-52'>
+                    <NavLink to="/"><img src={Logo} ></img></NavLink>
                 </div>
                 <div className='flex flex-row'>
                     <div className=' mx-2 text-lg'>

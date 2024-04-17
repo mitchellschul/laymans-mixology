@@ -3,6 +3,7 @@ import axios from 'axios'
 import ReactLoading from 'react-loading';
 
 
+
 import { addIngredient } from '../Assets/js/functions.js'
 import { queryAi, queryFPAi } from '../Assets/js/functions.js'
 
@@ -29,9 +30,13 @@ const Inventory = (props) => {
         setIngredients(response.data[0].ingredients);
     }
 
+
+
+
     const handleClick = async (event) => {
         document.getElementById('new_button').style.display = 'none';
         document.getElementById('loader').style.display = 'flex';
+        document.getElementById('progress-text').style.display = 'flex';
         await queryAi()
         window.location.href = '/drinks'
         document.getElementById('new_button').style.display = 'flex';
@@ -46,8 +51,10 @@ const Inventory = (props) => {
     const listItems = ingredients.map((ingredient) =>
         <div><WellItem item={ingredient} fetchIngredients={fetchIngredients} /></div>
     );
+
+
     return (
-        <div className=' flex flex-col items-center '>
+        <div className=' flex flex-col items-center bg-bg-white'>
             <div className='flex flex-col my-8'>
                 <div className='text-3xl font-oswald'>Your Ingredient Inventory</div>
             </div>
@@ -57,11 +64,11 @@ const Inventory = (props) => {
 
                 <form onSubmit={handleSubmit} className='flex flex-row justify-between my-8 min-w-96'>
 
-                    <input id='itemInput' type='text' className='border-2 border-[#003049] p-2 rounded-md w-[70%]' name='query' />
+                    <input id='itemInput' type='text' className='border-2 border-[#003049] p-2 rounded-md w-[70%] bg-bg-white' placeholder='Enter Item Name' name='query' />
                     <button type='submit' className='border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md '>Add Item</button>
                 </form>
                 <div className='flex flex-col-reverse'>{listItems}</div>
-                <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={handleClick}>Get New Drinks</button>
+                <button id='new_button' className="border-2 border-[#003049] text-[#003049] hover:bg-[#003049] hover:text-white p-2 rounded-md my-8" onClick={handleClick}>Generate Drinks</button>
 
                 <div id="loader" className='hidden flex-col items-center justify-center'>
                     <ReactLoading type={'bars'} color={'#003049'} height={50} width={100} />

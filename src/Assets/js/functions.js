@@ -16,7 +16,8 @@ export async function queryAi() {
 
     try {
         queryFPAi()
-        document.getElementById('progress-text').innerText = "Generating New Drinks"
+        document.getElementById('progress-text').innerText = "Building Flavor Profiles"
+        changeText()
         console.log('Running the AI')
         const response = await axios.post('http://127.0.0.1:8000/api/OPAIEndpointQuery/');
         const formatResponse = await axios.post('http://127.0.0.1:8000/api/setDrinks/', { query: response.data['response-payload'] });
@@ -46,4 +47,10 @@ export async function queryFPAi() {
         console.log("HEY THERES A FREAKING ERROR HERE BROSKI", count)
         // queryAi()
     }
+}
+
+async function changeText() {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    await delay(2000)
+    document.getElementById('progress-text').innerText = "Generating New Drinks"
 }

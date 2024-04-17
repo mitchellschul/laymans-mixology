@@ -15,7 +15,7 @@ const RecipeModal = (props) => {
 
     function handleCheck() {
 
-        if (buttonText == 'Remove Saved Drink') {
+        if (buttonText == 'Remove From Favorites') {
             console.log('REMOVE', props)
             removeSavedDrink()
             return;
@@ -29,7 +29,7 @@ const RecipeModal = (props) => {
 
     const addSavedDrink = async (event) => {
         setButtonText('Drink Saved')
-        document.getElementById('save-button').innerText = 'Drink Saved'
+        document.getElementById('save-button').innerText = 'Favorited Drink'
         console.log('adding', props.drinkData)
         const query = props.drinkData;
         const response = await axios.post('http://127.0.0.1:8000/api/addSavedDrink/', { query: query });
@@ -42,7 +42,7 @@ const RecipeModal = (props) => {
         console.log('removing', props)
         document.getElementById(props.idName + "_recipe_modal").style.display = 'none'
 
-        setButtonText('Save Drink')
+        setButtonText('Favorite Drink')
         // document.getElementById('save-button').innerText = 'Save Drink'
         console.log('removing', props)
         const query = props.drinkData
@@ -82,7 +82,7 @@ const RecipeModal = (props) => {
         <div id={props.idName + "_recipe_modal"} tabindex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden absolute  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-2xl max-h-full">
                 {/* <!-- Modal content --> */}
-                <div class="relative bg-white rounded-lg shadow dark:bg-[#003049]">
+                <div class="relative bg-dark-gray rounded-lg shadow 9]">
                     {/* <!-- Modal header --> */}
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -97,7 +97,9 @@ const RecipeModal = (props) => {
                     </div>
                     {/* <!-- Modal body --> */}
                     <div class="p-4 md:p-5 flex flex-row ">
-                        <div className='w-40 h-40 bg-white'></div>
+                        <div className='w-40 h-40 bg-white'>
+                            <img src={props.img} alt="a cocktail" />
+                        </div>
                         <ul className='ml-8 text-white'>{ingredientsHtml}</ul>
                         <ul className='ml-8 text-white w-40'>{instructionsHtml}</ul>
                     </div>

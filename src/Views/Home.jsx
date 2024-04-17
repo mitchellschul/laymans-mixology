@@ -2,12 +2,11 @@ import { React, useState, useEffect } from 'react'
 import axios from 'axios'
 import Hero from '../Components/Hero'
 import bg from '../Assets/Images/bg.png'
-
+import { BiSolidDrink } from "react-icons/bi";
 
 import DrinkCard from '../Components/DrinkCard'
 
 const Home = (props) => {
-    console.log("HOME USER INFO", props)
 
     const [drinks, setDrinks] = useState([]);
     const [featuredDrink, setFeaturedDrink] = useState(null);
@@ -44,14 +43,19 @@ const Home = (props) => {
 
     // console.log(featuredDrinkName)
     return (
-        <div className="flex flex-col items-center" >
+        <div className="flex flex-col items-center bg-bg-white" >
 
             <Hero />
-            <div className="w-full  mx-20 flex flex-col items-center" >
+            <div className=" mx-20 flex flex-col items-center relative bottom-60" >
 
-                <div className='text-3xl my-8'>Your Saved Drinks</div>
-                <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-                    {listItems}
+                <div className='text-lg md:text-2xl my-8  border border-bg-white py-2 px-4 md:py-4 md:px-8 rounded-md text-bg-white font-display'>Your Favorites</div>
+                <div className='flex flex-col justify-start'>
+                    <div className='flex flex-row items-center text-gray-400 text-lg my-4'>
+                        <BiSolidDrink className='text-gray-400 mr-2 my-2 w-6 h-6' /> Drinks custom to your flavor profiles
+                    </div>
+                    <div className='grid grid-cols-1 gap-16 md:grid-cols-3'>
+                        {listItems}
+                    </div>
                 </div>
             </div>
         </div >
