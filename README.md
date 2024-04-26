@@ -10,7 +10,7 @@
 
 
 ## Demo in its Current State
-![](./github/demo.gif)
+![](./github/mixologydemo.gif)
 
 ## Built with 
 - [OpenAI API](https://openai.com/)
