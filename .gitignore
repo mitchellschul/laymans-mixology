@@ -35,7 +35,7 @@ backend/laymansBackend/settings.py
 local_settings.py
 media
 
-settings.py
+# settings.py
 
 trainingData.json
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
