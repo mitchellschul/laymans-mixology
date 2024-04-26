@@ -10,7 +10,7 @@
 
 
 ## Demo in its Current State
-![](./github/laymansdemo.gif)
+![](./github/demo.gif)
 
 ## Built with 
 - [OpenAI API](https://openai.com/)
